@@ -24,7 +24,17 @@ header h2 {
     padding: 10px 0;
 }
 
-header button {
+header form fieldset {
+    border: none;
+}
+
+header form input {
+    display: inline-block;
+    padding: 10px;
+    text-align: right;
+}
+
+header form button {
     display: inline-block;
     padding: 10px;
     /* border: none; */
@@ -39,7 +49,7 @@ main .wrap-table {
 
 #data table {
     border-collapse: collapse;  
-    /* width: 100%; */
+    width: 100%;
 }
 
 #data table th {
