@@ -5,11 +5,82 @@
 }
 
 body {
-    background-color: lightslategrey;
+    background-color: #778899;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .container {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
 }
 
+header {
+    padding: 20px 0;
+    background-color: #aabbcc;
+    text-align: center;
+}
+
+header h2 {
+    padding: 10px 0;
+}
+
+header button {
+    display: inline-block;
+    padding: 10px;
+    /* border: none; */
+}
+
+/* -------------- Estilo de la tabla -------------------- */
+
+main .wrap-table {
+    overflow-x: auto;
+    background-color: rgba(170, 187, 204, .7);
+}
+
+#data table {
+    border-collapse: collapse;  
+    /* width: 100%; */
+}
+
+#data table th {
+    background-color: #e1e1e1;
+}
+
+#data table tr:nth-child(odd) {
+    background-color: #aabbcc;
+}
+
+#data table tr:hover {
+    background-color: #778899;
+}
+
+#data table tr {
+    border-bottom: 1px solid #e1e1e1;
+    padding-left: 10px;
+}
+
+#data table tr:first-child {
+    position: sticky;
+    top: 0px;
+}
+
+#data table tr:last-child {
+    border: none;
+}
+
+#data table th, #data table td {
+    padding: 5px 8px;
+    text-align: left;
+}
+
+#data table th:first-child, #data table td:first-child {
+    padding-left: 16px;
+    text-align: left;
+}
+
+/* ------------ Fin tabla--------------------------- */
+
+footer {
+    padding: 10px 16px;
+    background-color: #aabbcc;
+}

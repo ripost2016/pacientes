@@ -124,4 +124,15 @@ function edad(){
     document.getElementById('data').innerHTML = contenido;
 }
 
+function copyrightMsg(pMsgString){
+    let year = new Date();
+    let msg = '<p>' + pMsgString + ' &copy; ' + year.getFullYear() + '</p>';
 
+    return msg;
+}
+
+function displayInside(pId, pContent){
+    document.getElementById(pId).innerHTML = pContent;
+}
+
+displayInside('footer', copyrightMsg('All Rights Reserved'));
