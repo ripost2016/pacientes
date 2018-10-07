@@ -67,20 +67,20 @@ main .wrap-table {
 
 #data table tr {
     border-bottom: 1px solid #e1e1e1;
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
 
-#data table tr:first-child {
+/* #data table tr:first-child {
     position: sticky;
     top: 0px;
-}
+} */
 
 #data table tr:last-child {
     border: none;
 }
 
 #data table th, #data table td {
-    padding: 5px 8px;
+    padding: 8px;
     text-align: left;
 }
 
@@ -100,4 +100,7 @@ main .wrap-table {
 footer {
     padding: 10px 16px;
     background-color: #aabbcc;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }

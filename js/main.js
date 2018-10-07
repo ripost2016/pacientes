@@ -139,6 +139,8 @@ function socialNumber() {
         contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
         // document.getElementById('data').innerHTML = contenido;
         displayInside('data', contenido);
+        
+        document.getElementById('footer').style.position = 'static';
         document.getElementById('social').value = '';
     }
 }
@@ -162,6 +164,8 @@ function edad(){
         }
         contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
         displayInside('data', contenido);
+
+        document.getElementById('footer').style.position = 'static';
         document.getElementById('fromAge').value = '';
         document.getElementById('toAge').value = '';
     }
