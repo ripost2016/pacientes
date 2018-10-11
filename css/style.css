@@ -9,6 +9,10 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    display: none;
+}
+
 .container {
     width: 95%;
     margin: 0 auto;
@@ -24,7 +28,18 @@ header h2 {
     padding: 10px 0;
 }
 
-header button {
+header form fieldset {
+    border: none;
+    text-align: right;
+}
+
+header form input {
+    display: inline-block;
+    padding: 10px;
+    text-align: right;
+}
+
+header form button {
     display: inline-block;
     padding: 10px;
     /* border: none; */
@@ -39,11 +54,7 @@ main .wrap-table {
 
 #data table {
     border-collapse: collapse;  
-    /* width: 100%; */
-}
-
-#data table th {
-    background-color: #e1e1e1;
+    width: 100%;
 }
 
 #data table tr:nth-child(odd) {
@@ -56,21 +67,27 @@ main .wrap-table {
 
 #data table tr {
     border-bottom: 1px solid #e1e1e1;
-    padding-left: 10px;
+    /* padding-left: 10px; */
 }
 
-#data table tr:first-child {
+/* #data table tr:first-child {
     position: sticky;
     top: 0px;
-}
+} */
 
 #data table tr:last-child {
     border: none;
 }
 
 #data table th, #data table td {
-    padding: 5px 8px;
+    padding: 8px;
     text-align: left;
+}
+
+#data table th {
+    background-color: #e1e1e1;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #data table th:first-child, #data table td:first-child {
@@ -83,4 +100,7 @@ main .wrap-table {
 footer {
     padding: 10px 16px;
     background-color: #aabbcc;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }

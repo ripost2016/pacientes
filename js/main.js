@@ -2,6 +2,15 @@ function isNumberEndingCero(pNumber) {
     return pNumber % 10 == 0;
 } // retorna true si el numero acaba en cero
 
+function isNumberEndingIn(pNumber, pEnding) {
+    let long = pEnding.length;
+    let divisor = 10 ** long;
+    let ending = parseInt(pEnding);
+    let number = parseInt(pNumber);
+
+    return number % divisor == ending;
+} // Retorna true si el número acaba en la terminación que le pedimos
+
 function getAgeFrom(pdate_ddmmyyyy) {
     // la fecha se recibe en formato string dd/mm/yyyy
     // y devuelve la edad en formato numero
@@ -23,6 +32,23 @@ function getSocialNumberEndingCero(pDataBase) {
     for (let i = 0; i < pDataBase.length; i++) {
         num = parseInt(pDataBase[i].social_number);
         if (isNumberEndingCero(num)) {
+            arr.push(pDataBase[i]);
+        }
+    }
+
+    return arr;
+}
+
+function getSocialNumberEndingIn(pDataBase, pEnding) {
+    // la funcion devuelve un array con los pacientes cuyo numero
+    // de la seguridad social acaban en pEnding
+
+    let arr = new Array();
+    // let num = 0;
+
+    for (let i = 0; i < pDataBase.length; i++) {
+        // num = parseInt(pDataBase[i].social_number);
+        if (isNumberEndingIn(pDataBase[i].social_number, pEnding)) {
             arr.push(pDataBase[i]);
         }
     }
@@ -94,20 +120,68 @@ function createTable(pDataBase, pHeaderArray, pFieldsArray) {
 
 //------------- Fin declaración de funciones --------------------------
 
+let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
+let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
 
+document.getElementById('search').addEventListener('keyup', buscar);
 
-// Listamos los pacientes cuyo número de la seguridad social acaba en 0
+function buscar(e) {
+    let texto = this.value;
+    texto = texto.toLowerCase();
+
+    if (texto != '') {
+        var filtro = buscarPorLetra(db_pacientes, texto);
+    } else {
+        var filtro = db_pacientes;
+    }
+
+    var contenido = createTable(filtro, cabecera, cuerpo); // Versión tabla
+    displayInside('data', contenido);    
+}
+
+function buscarPorLetra(pDB, pLetra) {
+    var filtroArray = new Array();
+
+    console.log('estoy en buscar letra');
+
+    for (let i = 0; i < pDB.length; i++) {
+        if(pDB[i].diagnosis.toLowerCase().search(pLetra) != -1) {
+            filtroArray.push(pDB[i]);
+        }
+    }
+
+    console.log(filtroArray);
+
+    return filtroArray;
+}
+
+function inicio() {
+    
+    var contenido = createTable(db_pacientes, cabecera, cuerpo); // Versión tabla
+    displayInside('data', contenido);
+}
+
+document.body.onload = inicio();
+
+// Listamos los pacientes cuyo número de la seguridad social acaba en
+// el número que le indicamos
 
 function socialNumber() {
     let listado = new Array();
     let contenido = '';
-    let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
-    let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
+    
+    let ending = document.getElementById('social').value;
 
-    listado = getSocialNumberEndingCero(db_pacientes);
-    // contenido = createListFrom(listado); // Versión listado
-    contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
-    document.getElementById('data').innerHTML = contenido;
+    if (ending != '') {
+        listado = getSocialNumberEndingIn(db_pacientes, ending);
+        // contenido = createListFrom(listado); // Versión listado
+        contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
+        // document.getElementById('data').innerHTML = contenido;
+        displayInside('data', contenido);
+        
+        document.getElementById('footer').style.position = 'static';
+        document.getElementById('social').value = '';
+    }
 }
 
 // Listamos los pacientes que están en un rango de edad
@@ -115,13 +189,26 @@ function socialNumber() {
 function edad(){
     let listado = new Array();
     let contenido = '';
-    let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
-    let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
 
-    listado = getPatients(db_pacientes, 25, 25);
+    let fromAge = parseInt(document.getElementById('fromAge').value);
+    let toAge = parseInt(document.getElementById('toAge').value);
+
+    if (fromAge != NaN && toAge != NaN && fromAge > 0 && toAge > 0) {
+        if (fromAge < toAge) {
+            listado = getPatients(db_pacientes, fromAge, toAge);
+        } else {
+            listado = getPatients(db_pacientes, toAge, fromAge);
+        }
+        contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
+        displayInside('data', contenido);
+
+        document.getElementById('footer').style.position = 'static';
+        document.getElementById('fromAge').value = '';
+        document.getElementById('toAge').value = '';
+    }
+
     // contenido = createListFrom(listado); // Versión listado
-    contenido = createTable(listado, cabecera, cuerpo); // Versión tabla
-    document.getElementById('data').innerHTML = contenido;
+    // document.getElementById('data').innerHTML = contenido;
 }
 
 function copyrightMsg(pMsgString){
