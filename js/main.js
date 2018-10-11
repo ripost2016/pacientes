@@ -120,7 +120,48 @@ function createTable(pDataBase, pHeaderArray, pFieldsArray) {
 
 //------------- Fin declaración de funciones --------------------------
 
+let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
+let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
 
+document.getElementById('search').addEventListener('keyup', buscar);
+
+function buscar(e) {
+    let texto = this.value;
+    texto = texto.toLowerCase();
+
+    if (texto != '') {
+        var filtro = buscarPorLetra(db_pacientes, texto);
+    } else {
+        var filtro = db_pacientes;
+    }
+
+    var contenido = createTable(filtro, cabecera, cuerpo); // Versión tabla
+    displayInside('data', contenido);    
+}
+
+function buscarPorLetra(pDB, pLetra) {
+    var filtroArray = new Array();
+
+    console.log('estoy en buscar letra');
+
+    for (let i = 0; i < pDB.length; i++) {
+        if(pDB[i].diagnosis.toLowerCase().search(pLetra) != -1) {
+            filtroArray.push(pDB[i]);
+        }
+    }
+
+    console.log(filtroArray);
+
+    return filtroArray;
+}
+
+function inicio() {
+    
+    var contenido = createTable(db_pacientes, cabecera, cuerpo); // Versión tabla
+    displayInside('data', contenido);
+}
+
+document.body.onload = inicio();
 
 // Listamos los pacientes cuyo número de la seguridad social acaba en
 // el número que le indicamos
@@ -128,8 +169,6 @@ function createTable(pDataBase, pHeaderArray, pFieldsArray) {
 function socialNumber() {
     let listado = new Array();
     let contenido = '';
-    let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
-    let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
     
     let ending = document.getElementById('social').value;
 
@@ -150,8 +189,6 @@ function socialNumber() {
 function edad(){
     let listado = new Array();
     let contenido = '';
-    let cabecera = new Array('Nombre', 'Apellidos', 'Fecha de nacimiento', 'Género', 'Número S.S.', 'Email', 'Teléfono', 'Diagnóstico');
-    let cuerpo = new Array('first_name', 'last_name', 'date_birth', 'gender', 'social_number', 'email', 'phone_number', 'diagnosis');
 
     let fromAge = parseInt(document.getElementById('fromAge').value);
     let toAge = parseInt(document.getElementById('toAge').value);
